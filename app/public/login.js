@@ -1,4 +1,5 @@
 
+
 const mensajeError = document.getElementsByClassName("error")[0]
 //Escuchar el inicio del envío del formulario de inicio de sesión y envíar la recarga de la página predeterminada del formulario
 document.getElementById("login-form").addEventListener("submit", async (e) => {
@@ -13,13 +14,14 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            user, contrasena
+            user: e.target.children.user.value, 
+            contrasena: e.target.children.contrasena.value
         })
     });
     //Muestra un mensaje de error si lo hay
     if (!res.ok) return mensajeError.classList.toggle("escondido", false);
     const resJson = await res.json();
-    if(resJson.redirect){
+    if (resJson.redirect) {
         //Si la respuesta es correcta direcciona a la url especifica
         window.location.href = resJson.redirect;
     }
